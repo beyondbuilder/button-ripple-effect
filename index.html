@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Ripple Effect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // tailwindcss configration file
+        tailwind.config = {
+            theme: {
+                extend: {
+                    keyframes: {
+                        ripple: {
+                            '0%': {width: '0px', height: '0px', opacity: 0.5},
+                            '100%': {width: '500px', height: '500px', opacity: 0}
+                        }
+                    },
+                    animation: {
+                        ripple: 'ripple 1s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="flex min-h-screen items-center justify-center bg-slate-50">
+        <div class="space-x-5">
+            <button class="relative
+                        overflow-hidden
+                        rounded-sm
+                        shadow-md
+                        shadow-gray-400/50
+                        bg-gradient-to-r
+                        from-blue-400
+                        to-cyan-400
+                        py-3 px-5
+                        text-lg
+                        font-medium
+                        uppercase
+                        tracking-wider
+                        text-gray-50
+        ">button</button>
+        <button class="relative
+                        overflow-hidden
+                        rounded-sm
+                        shadow-md
+                        shadow-gray-400/50
+                        bg-gradient-to-r
+                        from-indigo-400
+                        to-cyan-400
+                        py-3 px-5
+                        text-lg
+                        font-medium
+                        uppercase
+                        tracking-wider
+                        text-gray-50
+        ">button</button>
+        </div>
+    </div>
+    <script>
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const x = e.clientX - this.offsetLeft;
+                const y = e.clientY - this.offsetTop;
+                const ripples = document.createElement('span');
+                ripples.className = `left-[${x}px] top-[${y}px]` + ' absolute bg-white -translate-x-1/2 -translate-y-1/2 rounded-full animate-ripple';
+                this.appendChild(ripples);
+                setTimeout(() => ripples.remove(), 1000);
+            })
+        })
+    </script>
+</body>
+</html>
